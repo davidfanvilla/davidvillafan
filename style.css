@@ -1,0 +1,41 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  #canvas-container {
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a0a; /* Fondo negro */
+  }
+  
+  canvas {
+    display: block;
+  }
+
+  #canvas-container {
+    /* Agrega un tamaño al contenedor */
+    width: 600px;
+    height: 600px;
+  }
+  
+  a {
+    /* Agrega un margen entre los enlaces */
+    margin: 10px;
+  }
+  
+  a img {
+    /* Agrega un tamaño y un borde a las imágenes */
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  a:hover img {
+    /* Agrega un efecto de hover a las imágenes */
+    opacity: 0.6;
+  }
