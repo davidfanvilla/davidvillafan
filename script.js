@@ -147,14 +147,14 @@ function dibujarCV() {
   cvGraphics.textSize(subtitleSize);
   startY = drawTextWithShadow("Escuela de Aviación México", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
   startY = drawTextWithShadow("· Jefe de Operaciones Aéreas", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
-  startY = drawTextWithShadow("· Area de Compras de partes aeronáuticas", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
+  startY = drawTextWithShadow("· Compras de partes aeronáuticas", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
   startY = drawTextWithShadow("· Administrativo en el Área de Control Escolar", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
 
   cvGraphics.textSize(sectionTitleSize);
   startY = drawTextWithShadow("Herramientas de trabajo:", windowWidth / 2, startY + textGap * 2, effectiveWidth, sectionTitleSize * 1.5);
 
   cvGraphics.textSize(subtitleSize);
-  startY = drawTextWithShadow("Uso de prompts para IA: ChatGPT, Gemini (google), Groq, Claude, Dall-e (generación de imagenes por texto), con todos ellos puedo dieñar una pagina web desde cero, hacer proyectos de de programacion y arte generativa.", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
+  startY = drawTextWithShadow("Uso de prompts para IA: ChatGPT, Gemini (google), Groq, Claude, Dall-e (generación de imagenes por texto), con todos ellos puedo dieñar una pagina web desde cero, hacer proyectos de programación y arte generativa.", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
   startY = drawTextWithShadow("Software: Paquetería de Office, Blender (Diseño y Renderización en 3D y AR), Processing (Arte generativo) P5.js (arte generativo)", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
   startY = drawTextWithShadow("Lenguajes de Programación: Javascript, HTML, CSS", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
 }
