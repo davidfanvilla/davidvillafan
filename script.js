@@ -1,22 +1,23 @@
+"use strict";
+
 let points = [];
-let numPoints = 300;
-let maxSize = 10;
+let numPoints = 800;
+let maxSize = 20;
 let cvGraphics;
-let contentHeight = 4000;
+let contentHeight = 4000; // Altura total del contenido
 let scrollY = 0;
-let touchStartY = 0;
 let velocity = 0;
 let lastTime = 0;
-let scrolling = false;
 
 function setup() {
+  // Ajusta el canvas para llenar el ancho de la ventana
   let canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent('canvas-container');
   
   for (let i = 0; i < numPoints; i++) {
     points.push({
       x: random(width),
-      y: random(contentHeight),
+      y: random(contentHeight), // Los puntos se distribuyen en toda la altura del contenido
       size: random(3, maxSize),
       grow: random(0.02, 0.05),
       direction: random([1, -1]),
@@ -36,20 +37,20 @@ function setup() {
 
 function draw() {
   background(10);
-  
+
   let currentTime = millis();
   let deltaTime = (currentTime - lastTime) / 1000;
   lastTime = currentTime;
-  
+
   scrollY += velocity * deltaTime;
-  velocity *= 0.95; // Reducir la velocidad para inercia
-  
-  scrollY = constrain(scrollY, 0, contentHeight - height); // Limitar el scroll para no pasarse del contenido
+  velocity *= 0.95; // Reduce la velocidad gradualmente para un efecto de inercia
+
+  scrollY = constrain(scrollY, 0, contentHeight - height); // Limita el scroll al contenido
 
   push();
-  translate(0, -scrollY); // Aplicar el desplazamiento de scroll
-  
-  // Dibujar puntos y conexiones neuronales
+  translate(0, -scrollY); // Aplica el desplazamiento del scroll
+
+  // Dibuja los puntos y las conexiones entre ellos
   for (let i = 0; i < points.length; i++) {
     let p = points[i];
     
@@ -66,31 +67,27 @@ function draw() {
     if (p.x < 0 || p.x > width) p.speedX *= -1;
     if (p.y < 0 || p.y > contentHeight) p.speedY *= -1;
     
-    fill(255, 100, 255);
+    fill(58, 128, 189);
     noStroke();
-    ellipse(p.x, p.y + scrollY, p.size, p.size);
+    ellipse(p.x, p.y, p.size, p.size);
     
     for (let j = i + 1; j < points.length; j++) {
       let p2 = points[j];
-      let d = dist(p.x, p.y + scrollY, p2.x, p2.y + scrollY);
-      
+      let d = dist(p.x, p.y, p2.x, p2.y);
       if (d < 150) {
-        stroke(255, 50);
-        line(p.x, p.y + scrollY, p2.x, p2.y + scrollY);
+        stroke(58, 128, 189, 50);
+        line(p.x, p.y, p2.x, p2.y);
       }
     }
   }
-  
-  image(cvGraphics, 0, 0);
-  
-  pop();
 
-  drawScrollbar();
+  image(cvGraphics, 0, 0);
+
+  pop();
 }
 
 function dibujarCV() {
   cvGraphics.clear();
-  
   let titleSize = min(windowWidth * 0.05, 28);
   let subtitleSize = min(windowWidth * 0.035, 20);
   let sectionTitleSize = min(windowWidth * 0.045, 24);
@@ -112,8 +109,7 @@ function dibujarCV() {
         cvGraphics.text(line, x, y);
         y += lineHeight;
         line = words[n] + ' ';
-      }
-      else {
+      } else {
         line = testLine;
       }
     }
@@ -124,7 +120,6 @@ function dibujarCV() {
     return y + lineHeight;
   }
 
-  // Código para dibujar el CV
   cvGraphics.textSize(titleSize);
   let startY = 50;
   startY = drawTextWithShadow("David Villafán Sánchez", windowWidth / 2, startY, effectiveWidth, titleSize * 1.5);
@@ -132,7 +127,7 @@ function dibujarCV() {
   cvGraphics.textSize(subtitleSize);
   startY = drawTextWithShadow("Fecha de nacimiento: 18/02/1990", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
   startY = drawTextWithShadow("Correo: davidvillafan180290@hotmail.com", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
-  startY = drawTextWithShadow("Teléfono: 55 22 72 45 85", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
+  startY = drawTextWithShadow("Teléfono: 56 61 28 89 93", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
 
   cvGraphics.textSize(sectionTitleSize);
   startY = drawTextWithShadow("Habilidades:", windowWidth / 2, startY + textGap * 2, effectiveWidth, sectionTitleSize * 1.5);
@@ -147,16 +142,16 @@ function dibujarCV() {
   cvGraphics.textSize(subtitleSize);
   startY = drawTextWithShadow("Escuela de Aviación México", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
   startY = drawTextWithShadow("· Jefe de Operaciones Aéreas", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
-  startY = drawTextWithShadow("· Compras de partes aeronáuticas", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
+  startY = drawTextWithShadow("· Area de Compras de partes aeronáuticas", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
   startY = drawTextWithShadow("· Administrativo en el Área de Control Escolar", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
 
   cvGraphics.textSize(sectionTitleSize);
   startY = drawTextWithShadow("Herramientas de trabajo:", windowWidth / 2, startY + textGap * 2, effectiveWidth, sectionTitleSize * 1.5);
 
   cvGraphics.textSize(subtitleSize);
-  startY = drawTextWithShadow("Uso de prompts para IA: ChatGPT, Gemini (google), Groq, Claude, Dall-e (generación de imagenes por texto), con todos ellos puedo dieñar una pagina web desde cero, hacer proyectos de programación y arte generativa.", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
-  startY = drawTextWithShadow("Software: Paquetería de Office, Blender (Diseño y Renderización en 3D y AR), Processing (Arte generativo) P5.js (arte generativo)", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
-  startY = drawTextWithShadow("Lenguajes de Programación: Javascript, HTML, CSS", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
+  startY = drawTextWithShadow("Uso de prompts para IA: ChatGPT, Gemini (google), Groq, Claude, Dall-e (generacion de imagenes con texto) hago Vibe Coding y puedo hacer una pagina web desde cero", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
+  startY = drawTextWithShadow("Software que uso: Visual Studio Code, Cursor, Blender, Processing, P5.js. Con estos dos ultimos tengo proyectos de Arte Generativo", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
+  startY = drawTextWithShadow("Lenguajes de Programación: HTML, Javascript, CSS", windowWidth / 2, startY + textGap, effectiveWidth, subtitleSize * 1.5);
 }
 
 function windowResized() {
@@ -166,38 +161,6 @@ function windowResized() {
 }
 
 function mouseWheel(event) {
-  velocity += event.delta * 0.1;
+  velocity += event.delta * 1.0;
   return false;
-}
-
-function touchStarted() {
-  touchStartY = mouseY; // Almacenar el inicio del toque
-  scrolling = true;
-  velocity = 0; // Reiniciar la velocidad cuando el toque comienza
-  return false;
-}
-
-function touchMoved() {
-  if (scrolling) {
-    let touchY = mouseY;
-    let deltaY = touchStartY - touchY; // Diferencia del toque
-    scrollY = constrain(scrollY + deltaY, 0, contentHeight - height); // Desplazamiento dentro de los límites
-    touchStartY = touchY; // Actualizar la posición inicial para el siguiente movimiento
-  }
-  return false;
-}
-
-function touchEnded() {
-  scrolling = false; // Detener el scroll cuando se suelta
-  return false;
-}
-
-function drawScrollbar() {
-  fill(0);
-  noStroke();
-  rect(0, height - 20, 10, 20);
-  
-  let scrollbarPosition = map(scrollY, 0, contentHeight - height, 0, 20);
-  fill(255);
-  rect(0, height - 20, 10, scrollbarPosition);
 }
